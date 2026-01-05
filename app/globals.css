@@ -1,26 +1,247 @@
-@import "tailwindcss";
+@font-face {
+    font-family: "Aloha Magazine";
+    src: url("/fonts/aloha-magazine/AlohaMagazine-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --bg: #f3f3f3;
+    --fg: #111111;
+    --muted: #666666;
+    --border: #000000;
+    --card: #e6e6e6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: "Raleway", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+}
+
+/* Page wrapper (fills viewport) */
+.page {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 0;
+    background: var(--bg);
+}
+
+/* INNER CONTENT LAYOUT */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.name {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin: 0 0 4px;
+    font-family: "Aloha Magazine", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+.role {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.nav {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item:hover {
+    text-decoration: underline;
+}
+
+.mode-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.mode-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--muted);
+}
+
+.mode-button.active {
+    color: var(--fg);
+}
+
+/* MAIN FULL-SCREEN CANVAS */
+.frame {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    background: #efefef;
+    display: grid;
+    grid-template-columns: 1.7fr 0.3fr;
+    column-gap: 64px;
+    padding: 64px 96px;
+    overflow: hidden;
+}
+
+/* inner black frame (poster) */
+.frame::before {
+    content: "";
+    position: absolute;
+    inset: 24px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+}
+
+/* extended vertical lines on left and right */
+.page::before,
+.page::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* left line aligned with inner frame */
+.page::before {
+    left: 24px;
+}
+
+/* right line aligned with inner frame */
+.page::after {
+    right: 24px;
+}
+
+/* extended horizontal line at the top */
+.frame::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 24px;
+    height: 1px;
+    background: var(--border);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* extended horizontal line at the bottom */
+body::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    height: 1px;
+    background: var(--border);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* gradient / noise inside the inner frame */
+.noise-panel {
+    position: absolute;
+    inset: 24px;
+    pointer-events: none;
+    background:
+            radial-gradient(
+                    circle at 50% 40%,
+                    rgba(255, 255, 255, 0.9) 0,
+                    rgba(255, 255, 255, 0) 40%
+            ),
+            linear-gradient(
+                    90deg,
+                    #dcdcdc 0%,
+                    #f3f3f3 25%,
+                    #cfcfcf 70%,
+                    #bdbdbd 100%
+            );
+    opacity: 0.9;
+}
+
+/* make text sit on top of the gradient */
+.left-column,
+.right-column {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+
+/* RIGHT COLUMN */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-top: 48px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.7;
+    max-width: 260px;
+}
+
+/* MOBILE */
+@media (max-width: 800px) {
+    .frame {
+        grid-template-columns: 1fr;
+        row-gap: 24px;
+        padding: 32px 24px;
+    }
+
+    .frame::before {
+        inset: 16px;
+    }
+
+    .noise-panel {
+        inset: 16px;
+    }
+
+    .right-column {
+        align-items: flex-start;
+    }
 }
