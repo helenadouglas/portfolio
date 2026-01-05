@@ -6,12 +6,11 @@ export default function Home() {
     return (
       <main className={"page"}>
           <section className="frame">
-              {/* gradient / noise background */}
               <div className="noise-panel" />
               <div className={"left-column"}>
                   <div>
                       <h1 className={"name"}>Helena Douglas</h1>
-                      <p className={"role"}>Full-stack Developer</p>
+                      <p className={"role"}>Aspiring Full-stack Developer</p>
 
                       <nav className="nav">
                           <Link href="/projects" className="nav-item">
@@ -31,7 +30,7 @@ export default function Home() {
                 <p>
                     Born in 2002 in Oslo, Norway.
                     <br />
-                    Currently taking my master's degree in Informatics: Programming and System Architecture at the University of Oslo.
+                    Currently taking a master's degree in Informatics: Programming and Systems Architecture at the University of Oslo.
                     <br />
                     Passionate about building web applications and exploring new technologies.
                 </p>
