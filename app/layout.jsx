@@ -1,4 +1,6 @@
 import "./globals.css";
+import Link from "next/link";
+import ModeToggle from "./components/ModeToggle";
 
 export const metadata = {
     title: "Helena Douglas",
@@ -15,7 +17,9 @@ export default function RootLayout({ children }) {
         </head>
 
         <body>
+          <Link href="/" className="home-link">Home</Link>
         {children}
+          <ModeToggle />
         </body>
         </html>
     );
