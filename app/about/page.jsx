@@ -20,7 +20,7 @@ export default function AboutPage() {
                             I care about solid foundations, readable code, and interfaces that feel simple to use.
                         </p>
                         <a
-                            href="/Helena_Douglas_CV.pdf"
+                            href="/HelenaDouglas_cv.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             download
