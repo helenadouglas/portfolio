@@ -35,6 +35,15 @@ body {
     color: var(--fg);
 }
 
+body.dark-mode {
+    --bg: #111111;
+    --fg: #f5f5f5;
+    --muted: #aaaaaa;
+    --border: #f5f5f5;
+    --card: #1d1d1d;
+}
+
+
 /* Page wrapper (fills viewport) */
 .page {
     min-height: 100vh;
@@ -117,7 +126,7 @@ body {
     width: 100vw;
     height: 100vh;
     max-width: 100vw;
-    background: #efefef;
+    background: var(--card);
     display: grid;
     grid-template-columns: 1.7fr 0.3fr;
     column-gap: 64px;
@@ -183,25 +192,44 @@ body::before {
     z-index: 5;
 }
 
-/* gradient / noise inside the inner frame */
 .noise-panel {
     position: absolute;
     inset: 24px;
     pointer-events: none;
     background:
             radial-gradient(
+                    circle at 40% 45%,
+                    rgba(255, 255, 255, 1) 0,
+                    rgba(255, 255, 255, 0.85) 16%,
+                    rgba(255, 255, 255, 0.35) 40%,
+                    rgba(255, 255, 255, 0.0) 65%
+            ),
+
+            linear-gradient(
+                    90deg,
+                    #c8c8c8 0%,    /* darker left */
+                    #f9f9f9 25%,   /* very bright left-mid */
+                    #f3f3f3 55%,   /* soft middle */
+                    #d0d0d0 100%   /* darker right */
+            );
+    opacity: 1;
+}
+
+body.dark-mode .noise-panel {
+    background:
+            radial-gradient(
                     circle at 50% 40%,
-                    rgba(255, 255, 255, 0.9) 0,
-                    rgba(255, 255, 255, 0) 40%
+                    rgba(255, 255, 255, 0.16) 0,   /* brighter center */
+                    rgba(255, 255, 255, 0.06) 25%, /* soft glow */
+                    rgba(255, 255, 255, 0) 50%
             ),
             linear-gradient(
                     90deg,
-                    #dcdcdc 0%,
-                    #f3f3f3 25%,
-                    #cfcfcf 70%,
-                    #bdbdbd 100%
+                    #1b1b1b 0%,   /* dark left */
+                    #2a2a2a 20%,  /* mid grey */
+                    #333333 55%,  /* slightly lighter band */
+                    #1c1c1c 100%  /* fade back to dark */
             );
-    opacity: 0.9;
 }
 
 /* make text sit on top of the gradient */
