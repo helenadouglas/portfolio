@@ -4,7 +4,7 @@ import "./contact.css";
 export default function ContactPage() {
     return (
         <div className="page">
-            <div className="frame contact-frame">
+            <div className="frame">
                 <div className="noise-panel" />
                 {/* LEFT COLUMN */}
                 <div className="left-column contact-left">
